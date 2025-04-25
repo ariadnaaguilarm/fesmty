@@ -26,6 +26,7 @@
         #resultado {
             font-weight: bold;
             margin-top: 20px;
+            white-space: pre-line;
         }
     </style>
 </head>
@@ -57,16 +58,17 @@
             const horas = parseFloat(document.getElementById("horas").value);
             const dle = parseFloat(document.getElementById("dle").value);
 
-            if ([headcount, workcontent, horas, dle].some(isNaN) || workcontent === 0) {
+            if ([headcount, workcontent, horas, dle].some(isNaN) || workcontent === 0 || horas === 0) {
                 document.getElementById("resultado").innerText = "Por favor completa todos los campos con valores válidos.";
                 return;
             }
 
             const piezas = ((headcount * horas) / (workcontent / 3600)) * (dle / 100);
             const piezasRedondeadas = Math.floor(piezas);
+            const piezasPorHora = Math.floor(piezasRedondeadas / horas);
 
             document.getElementById("resultado").innerText = 
-                `Piezas a producir: ${piezasRedondeadas}`;
+                `Piezas a producir: ${piezasRedondeadas}\nPiezas por hora: ${piezasPorHora}`;
         }
     </script>
 </body>
