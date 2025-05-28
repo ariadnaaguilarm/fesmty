@@ -43,7 +43,7 @@
             font-weight: bold;
         }
 
-        input {
+        input, select {
             padding: 10px;
             margin-top: 5px;
             width: 100%;
@@ -94,8 +94,13 @@
         <label for="workcontent">Workcontent (segundos por pieza):</label>
         <input type="number" id="workcontent" placeholder="Ej. 460">
 
-        <label for="horas">Horas de apertura:</label>
-        <input type="number" id="horas" placeholder="Ej. 9">
+        <label for="turno">Selecciona el turno:</label>
+        <select id="turno">
+            <option value="">-- Selecciona un turno --</option>
+            <option value="1">Turno 1</option>
+            <option value="2">Turno 2</option>
+            <option value="3">Turno 3</option>
+        </select>
 
         <label for="dle">DLE Objetivo (%):</label>
         <input type="number" id="dle" placeholder="Ej. 55">
@@ -109,11 +114,31 @@
         function calcularPiezas() {
             const headcount = parseFloat(document.getElementById("headcount").value);
             const workcontent = parseFloat(document.getElementById("workcontent").value);
-            const horas = parseFloat(document.getElementById("horas").value);
+            const turno = document.getElementById("turno").value;
             const dle = parseFloat(document.getElementById("dle").value);
 
-            if ([headcount, workcontent, horas, dle].some(isNaN) || workcontent === 0 || horas === 0) {
+            if ([headcount, workcontent, dle].some(isNaN) || !turno || workcontent === 0) {
                 document.getElementById("resultado").innerText = "Por favor completa todos los campos con valores válidos.";
+                return;
+            }
+
+            let horas;
+            switch(turno) {
+                case "1":
+                    horas = 7;
+                    break;
+                case "2":
+                    horas = 8;
+                    break;
+                case "3":
+                    horas = 6;
+                    break;
+                default:
+                    horas = 0;
+            }
+
+            if (horas === 0) {
+                document.getElementById("resultado").innerText = "Selecciona un turno válido.";
                 return;
             }
 
@@ -127,4 +152,5 @@
     </script>
 </body>
 </html>
+
 
