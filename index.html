@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Calculadora de Producción</title>
+    <title>Calculadora de Piezas por Hora</title>
     <style>
         body {
             font-family: Century Gothic, Century gothic;
@@ -86,7 +86,7 @@
     </div>
 
     <div class="contenedor">
-        <h2>Calculadora de Piezas a Producir</h2>
+        <h2>Calculadora de Piezas por Hora</h2>
 
         <label for="headcount">Headcount (personas):</label>
         <input type="number" id="headcount" placeholder="Ej. 9">
@@ -105,7 +105,7 @@
         <label for="dle">DLE Objetivo (%):</label>
         <input type="number" id="dle" placeholder="Ej. 55">
 
-        <button onclick="calcularPiezas()">Calcular Piezas</button>
+        <button onclick="calcularPiezas()">Calcular</button>
 
         <div id="resultado"></div>
     </div>
@@ -124,17 +124,10 @@
 
             let horas;
             switch(turno) {
-                case "1":
-                    horas = 8;
-                    break;
-                case "2":
-                    horas = 9;
-                    break;
-                case "3":
-                    horas = 7;
-                    break;
-                default:
-                    horas = 0;
+                case "1": horas = 8; break;
+                case "2": horas = 9; break;
+                case "3": horas = 7; break;
+                default: horas = 0;
             }
 
             if (horas === 0) {
@@ -146,11 +139,11 @@
             const piezasRedondeadas = Math.floor(piezas);
             const piezasPorHora = Math.floor(piezasRedondeadas / horas);
 
-            document.getElementById("resultado").innerText = 
-                `Piezas a producir: ${piezasRedondeadas}\nPiezas por hora: ${piezasPorHora}`;
+            document.getElementById("resultado").innerText = `Piezas por hora: ${piezasPorHora}`;
         }
     </script>
 </body>
 </html>
+
 
 
