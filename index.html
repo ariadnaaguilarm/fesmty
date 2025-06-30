@@ -110,38 +110,51 @@
         <div id="resultado"></div>
     </div>
 
-    <script>
-        function calcularPiezas() {
-            const headcount = parseFloat(document.getElementById("headcount").value);
-            const workcontent = parseFloat(document.getElementById("workcontent").value);
-            const turno = document.getElementById("turno").value;
-            const dle = parseFloat(document.getElementById("dle").value);
+<script>
+    function calcularPiezas() {
+        const headcount = parseFloat(document.getElementById("headcount").value);
+        const workcontent = parseFloat(document.getElementById("workcontent").value);
+        const turno = document.getElementById("turno").value;
+        const dle = parseFloat(document.getElementById("dle").value);
 
-            if ([headcount, workcontent, dle].some(isNaN) || !turno || workcontent === 0) {
-                document.getElementById("resultado").innerText = "Por favor completa todos los campos con valores válidos.";
-                return;
-            }
-
-            let horas;
-            switch(turno) {
-                case "1": horas = 8; break;
-                case "2": horas = 9; break;
-                case "3": horas = 7; break;
-                default: horas = 0;
-            }
-
-            if (horas === 0) {
-                document.getElementById("resultado").innerText = "Selecciona un turno válido.";
-                return;
-            }
-
-            const piezas = ((headcount * horas) / (workcontent / 3600)) * (dle / 100);
-            const piezasRedondeadas = Math.floor(piezas);
-            const piezasPorHora = Math.floor(piezasRedondeadas / horas);
-
-            document.getElementById("resultado").innerText = `Piezas por hora: ${piezasPorHora}`;
+        if ([headcount, workcontent, dle].some(isNaN) || !turno || workcontent === 0) {
+            document.getElementById("resultado").innerText = "Por favor completa todos los campos con valores válidos.";
+            return;
         }
-    </script>
+
+        let horas;
+        let divisorHoras;
+        switch(turno) {
+            case "1":
+                horas = 8;
+                divisorHoras = 7;
+                break;
+            case "2":
+                horas = 9;
+                divisorHoras = 8;
+                break;
+            case "3":
+                horas = 7;
+                divisorHoras = 6;
+                break;
+            default:
+                horas = 0;
+                divisorHoras = 1;
+        }
+
+        if (horas === 0) {
+            document.getElementById("resultado").innerText = "Selecciona un turno válido.";
+            return;
+        }
+
+        const piezas = ((headcount * horas) / (workcontent / 3600)) * (dle / 100);
+        const piezasRedondeadas = Math.floor(piezas);
+        const piezasPorHora = Math.floor(piezasRedondeadas / divisorHoras);
+
+        document.getElementById("resultado").innerText = `Piezas por hora: ${piezasPorHora}`;
+    }
+</script>
+    
 </body>
 </html>
 
